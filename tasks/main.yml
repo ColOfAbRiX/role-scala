@@ -1,0 +1,10 @@
+---
+# tasks file for scala
+
+- name: "Include OS-Specific Variables"
+  include_vars: "vars_{{ ansible_distribution | lower }}_{{ ansible_distribution_major_version }}.yml"
+  tags: scala
+
+- name: "Run OS-Specific Tasks"
+  include: "tasks_{{ ansible_distribution | lower }}_{{ ansible_distribution_major_version }}.yml"
+  tags: scala
