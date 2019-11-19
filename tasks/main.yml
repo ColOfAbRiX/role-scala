@@ -2,9 +2,9 @@
 # tasks file for scala
 
 - name: "Include OS-Specific Variables"
-  include_vars: "vars_{{ ansible_distribution | lower }}_{{ ansible_distribution_major_version }}.yml"
-  tags: scala
+  include_vars: "vars-{{ ansible_distribution }}_{{ ansible_distribution_major_version }}.yml"
+  tags: [scala, sbt, java]
 
 - name: "Run OS-Specific Tasks"
-  include: "tasks_{{ ansible_distribution | lower }}_{{ ansible_distribution_major_version }}.yml"
-  tags: scala
+  include: "tasks-{{ ansible_distribution }}_{{ ansible_distribution_major_version }}.yml"
+  tags: [scala, sbt, java]

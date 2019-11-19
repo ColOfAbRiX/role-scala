@@ -1,0 +1,8 @@
+---
+# vars file for scala
+
+scala_java_package: openjdk-11-jdk
+
+scala_main_package: "scala-{{ scala_main_version }}"
+
+scala_sbt_package: "sbt-{{ scala_sbt_version }}"

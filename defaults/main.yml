@@ -1,11 +1,16 @@
 ---
 # defaults file for scala
 
-# Version Java JDK to install:
-scala_jdk_version: '1.8.0'
+# Java JDK
+java_jdk_repo: ''
+java_jdk_package: openjdk-11-jdk
 
-# Version of Scala to install:
-scala_main_version: '2.12.2'
+# Scala
+scala_version: 2.13.0
 
-# Version of Scala SBT to install:
-scala_sbt_version: '0.13.5'
+# SBT
+sbt_package: 'sbt'
+sbt_version: ''
+
+# Ammonite
+ammonite_version: 1.8.1
