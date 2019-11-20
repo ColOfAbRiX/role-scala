@@ -47,8 +47,20 @@
 ##  Scala  ##
 
 - name: "Install Scala"
-  apt:
-    deb: "{{ scala_package_url }}"
+  block:
+
+  - name: "Download Scala Package"
+    get_url:
+      url: "{{ scala_package_url }}"
+      dest: "/opt/scala-{{ scala_version }}.deb"
+    register: scala_deb_package
+
+  - name: "Install Scala Package"
+    apt:
+      deb: "/opt/scala-{{ scala_version }}.deb"
+      state: present
+    when: scala_deb_package | changed
+
   when: scala_version | default('') != ''
   tags: scala
 
