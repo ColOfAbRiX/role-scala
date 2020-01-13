@@ -20,26 +20,35 @@
 
 ##  SBT  ##
 
-- name: "Add SBT Repository Key"
-  apt_key:
-    keyserver: keyserver.ubuntu.com
-    id: 2EE0EA64E40A89B84B2DF73499E82A75642AC823
-    state: present
-  tags: scala
-
-- name: "Add SBT Repository"
-  apt_repository:
-    state:          present
-    repo:           deb https://dl.bintray.com/sbt/debian /
-    validate_certs: no
-  register: sbt_repo_added
-  tags: scala
-
 - name: "Install SBT"
-  apt:
-    name:         "{{ sbt_package }}"
-    state:        present
-    update_cache: "{% if sbt_repo_added | changed %}yes{% else %}no{% endif %}"
+  block:
+
+   - name: "Add SBT Repository Key"
+     apt_key:
+       keyserver: keyserver.ubuntu.com
+       id: 2EE0EA64E40A89B84B2DF73499E82A75642AC823
+       state: present
+
+   - name: "Add SBT Repository"
+     apt_repository:
+       state:          present
+       repo:           deb https://dl.bintray.com/sbt/debian /
+       validate_certs: no
+       update_cache:   yes
+     ignore_errors: true
+
+   - name: "Install SBT"
+     apt:
+       name:  "{{ sbt_package }}"
+       state: present
+
+   - name: "Remove SBT Repository"
+     apt_repository:
+       state:          absent
+       repo:           deb https://dl.bintray.com/sbt/debian /
+       validate_certs: no
+     changed_when: false
+
   when: sbt_package | default('') != ''
   tags: scala
 
