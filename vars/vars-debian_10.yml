@@ -1,7 +1,9 @@
 ---
 # vars file for scala
 
-scala_java_package: openjdk-{{ java_jdk_version }}-jdk
+distro_name: buster
+
+scala_java_package: "adoptopenjdk-{{ java_jdk_version }}-hotspot"
 
 scala_main_package: "scala-{{ scala_main_version }}"
 

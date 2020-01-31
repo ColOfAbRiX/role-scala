@@ -4,7 +4,7 @@ galaxy_info:
   description: Scala and SBT installation
   company:
   license:
-  min_ansible_version: 2.1.0
+  min_ansible_version: 2.5.0
   #
   # Below are all platforms currently available. Just uncomment
   # the ones that apply to your role. If you don't see your

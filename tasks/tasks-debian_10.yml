@@ -7,14 +7,22 @@
 
 ##  Java  ##
 
-# - name: "Add Java JDK Repository"
-#   apt_repository: repo="{{ java_jdk_repo }}" state=present validate_certs=no
-#   when: java_jdk_repo | default('') != ''
-#   tags: scala
+- name: "Add Java OpenJDK Repository Key"
+  apt_key:
+    url: https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public
+    state: present
+  tags: scala
+
+- name: "Add Java OpenJDK JDK Repository"
+  apt_repository:
+    state:          present
+    repo:           "deb https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ {{ distro_name }} main"
+    validate_certs: no
+    update_cache:   yes
+  tags: scala
 
 - name: "Install Java JDK"
   apt: name="{{ scala_java_package }}" state=latest
-  when: scala_java_package | default('') != ''
   tags: scala
 
 
@@ -42,12 +50,12 @@
        name:  "{{ sbt_package }}"
        state: present
 
-   - name: "Remove SBT Repository"
-     apt_repository:
-       state:          absent
-       repo:           deb https://dl.bintray.com/sbt/debian /
-       validate_certs: no
-     changed_when: false
+  #  - name: "Remove SBT Repository"
+  #    apt_repository:
+  #      state:          absent
+  #      repo:           deb https://dl.bintray.com/sbt/debian /
+  #      validate_certs: no
+  #    changed_when: false
 
   when: sbt_package | default('') != ''
   tags: scala

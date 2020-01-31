@@ -2,8 +2,7 @@
 # defaults file for scala
 
 # Java JDK
-java_jdk_repo: ''
-java_jdk_package: openjdk-11-jdk
+java_jdk_version: 11
 
 # Scala
 scala_version: 2.13.0
