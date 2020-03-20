@@ -42,13 +42,6 @@
        name:  "{{ sbt_package }}"
        state: present
 
-   - name: "Remove SBT Repository"
-     apt_repository:
-       state:          absent
-       repo:           deb https://dl.bintray.com/sbt/debian /
-       validate_certs: no
-     changed_when: false
-
   when: sbt_package | default('') != ''
   tags: scala
 

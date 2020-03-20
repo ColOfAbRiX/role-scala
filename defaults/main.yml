@@ -12,4 +12,4 @@ sbt_package: 'sbt'
 sbt_version: ''
 
 # Ammonite
-ammonite_version: 1.8.1
+ammonite_version: 2.0.4
