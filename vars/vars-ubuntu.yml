@@ -1,0 +1,5 @@
+---
+# vars file for scala
+
+scala_exec_path:    /usr/bin/scala
+scala_main_package: "scala-{{ scala_main_version }}"

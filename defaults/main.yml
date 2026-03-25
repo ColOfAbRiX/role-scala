@@ -1,15 +1,13 @@
 ---
 # defaults file for scala
 
-# Java JDK
-java_jdk_version: 11
-
 # Scala
-scala_version: 2.13.0
+scala_version: 3.8.2
+scala_force_install: false
 
 # SBT
-sbt_package: 'sbt'
-sbt_version: ''
+scala_sbt_install: true
 
 # Ammonite
-ammonite_version: 2.0.4
+scala_ammonite_version: 3.0.8
+scala_ammonite_force_install: false

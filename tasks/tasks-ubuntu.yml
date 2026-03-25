@@ -1,0 +1,72 @@
+---
+- name: "Set Scala URLs"
+  set_fact:
+    scala_package_url: "https://scala-lang.org/files/archive/scala-{{ scala_version }}.deb"
+    scala_sbt_dependencies:
+      - apt-transport-https
+      - curl
+      - gnupg
+  tags: scala
+
+# ##  SBT  ##
+
+- name: "Install SBT"
+  block:
+    - name: "Install APT dependencies"
+      apt:
+        name: "{{ scala_sbt_dependencies }}"
+        state: present
+        update_cache: yes
+
+    - name: "Add SBT repository"
+      lineinfile:
+        path: /etc/apt/sources.list.d/sbt.list
+        line: "deb https://repo.scala-sbt.org/scalasbt/debian all main"
+        create: true
+        state: present
+
+    - name: "Add SBT legacy repository"
+      lineinfile:
+        path: /etc/apt/sources.list.d/sbt_legacy.list
+        line: "deb https://repo.scala-sbt.org/scalasbt/debian /"
+        create: true
+        state: present
+
+    - name: "Import SBT GPG key"
+      apt_key:
+        url: "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2EE0EA64E40A89B84B2DF73499E82A75642AC823"
+        state: present
+
+    - name: "Install SBT"
+      apt:
+        name: sbt
+        state: present
+        update_cache: yes
+
+  when: scala_sbt_install | default(true)
+  tags: scala
+
+##  Scala  ##
+
+- name: "Install Scala"
+  become: true
+  block:
+
+    - name: Unarchive Scala to /opt
+      ansible.builtin.unarchive:
+        src: "https://github.com/scala/scala3/releases/download/{{ scala_version }}/scala3-{{ scala_version }}.tar.gz"
+        dest: /opt
+        remote_src: yes
+        creates: "/opt/scala3-{{ scala_version }}"
+
+    - name: Create symlinks in /usr/local/bin
+      ansible.builtin.file:
+        src: "/opt/scala3-{{ scala_version }}/bin/{{ item }}"
+        dest: "/usr/local/bin/{{ item }}"
+        state: link
+      loop:
+        - scala
+        - scalac
+        - scaladoc
+
+  tags: scala

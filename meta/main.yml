@@ -25,4 +25,4 @@ galaxy_info:
     - system
     - development
 
-dependencies: []
+dependencies: [java]
