@@ -43,6 +43,11 @@
         state: present
         update_cache: yes
 
+    - name: "Global SBT configuration"
+      template:
+        src: sbtopts_global.j2
+        dest: /etc/sbt/sbtopts
+
   when: scala_sbt_install | default(true)
   tags: scala
 

@@ -7,6 +7,7 @@ scala_force_install: false
 
 # SBT
 scala_sbt_install: true
+scala_sbt_global_opts: ""
 
 # Ammonite
 scala_ammonite_version: 3.0.8
