@@ -1,0 +1,35 @@
+---
+
+- name: "Get User Home Directory : {{ sbt_user.username }}"
+  become: true
+  ansible.builtin.getent:
+    database: passwd
+    key: "{{ sbt_user.username }}"
+  tags: scala
+
+- name: "Build Information : {{ sbt_user.username }}"
+  ansible.builtin.set_fact:
+    user_home: "{{ getent_passwd[sbt_user.username][4] }}"
+  tags: scala
+
+- name: "SBT Home Directory : {{ sbt_user.username }}"
+  become: true
+  become_user: "{{ sbt_user.username }}"
+  ansible.builtin.file:
+    path: "{{ user_home }}/.sbt"
+    state: directory
+    mode: '0755'
+  tags: scala
+
+- name: "User SBT Sonatype Credentials : {{ sbt_user.username }}"
+  become: true
+  become_user: "{{ sbt_user.username }}"
+  template:
+    src: "sonatype_central_credentials.j2"
+    dest: "{{ user_home }}/.sbt/sonatype_central_credentials"
+    owner: "{{ sbt_user.username }}"
+    group: "{{ sbt_user.username }}"
+    mode: "0644"
+  when:
+    - sbt_user.sbt_sonatype is defined
+  tags: scala
