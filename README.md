@@ -18,7 +18,7 @@ MIT
 
 ## Author Information
 
-[Fabrizio Colonna](colofabrix@tin.it)
+Fabrizio Colonna <colofabrix@tin.it>
 
 ## Contributors
 

@@ -3,6 +3,7 @@
   assert:
     that: ansible_distribution == 'Ubuntu' and ansible_distribution_version is version('22.0.0', '>=')
     msg: "This Linux distribution '{{ ansible_distribution }} {{ ansible_distribution_version }}' is not supported by the role."
+    quiet: true
   tags: scala
 
 - name: "Include OS-Specific Variables"
