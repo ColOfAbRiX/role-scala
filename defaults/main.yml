@@ -14,11 +14,103 @@ scala_sbt_users: []
 #      username: sona_fabrizio
 #      password: Passw0rd
 
-scala_sbt_global_opts: ""
-scala_sbt_global_config_extra: ""
-scala_sbt_global_config: |
-  credentials += Credentials(Path.userHome / ".sbt" / "sonatype_central_credentials")
-  {{ scala_sbt_global_config_extra | default(omit) }}
+# See https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html#Other+system+properties
+scala_sbt_global_opts: {}
+  # # Starts sbt even if the current directory contains no sbt project.
+  # allow_empty: true
+  # # Set memory options
+  # mem: <integer>
+  # # Use local caches for projects, no sharing.
+  # no_share: true
+  # # Sets the sbt version to use.
+  # sbt_version: 0.12.8
+  # # Scala home path
+  # scala_home: <path>
+  # # Scala version to use
+  # scala_version: <version>
+  # # JVM home path
+  # java_home: <path>
+  # boot:
+  #   # Path to shared boot directory. You should define sbt.boot.directory explicitly if you are using sbt in a CI environment and want to cache sbt boot classes between runs.
+  #   directory: "~/.sbt/boot"
+  #   # The path to find the sbt boot properties file. This can be a relative path, relative to the sbt base directory, the users home directory or the location of the sbt jar file, or it can be an absolute path or an absolute file URI.
+  #   properties: ""
+  # # For continuous integration environments. Suppress supershell and color.
+  # ci: "false"
+  # client: "false"
+  # # Supersedes sbt.log.format. To turn on color, use always or true. To turn off color, use never or false>. To use color if the output is a terminal (not a pipe) that supports color, use auto.
+  # color: auto
+  # coursier:
+  #   # Use coursier to retrieve packages. (See also sbt.ivy.)
+  #   enabled: "true"
+  #   # Location of coursier artifact cache, where the default is defined by Coursier cache resolution logic. You can verify the value with the command `csrCacheDirectory`. You should define sbt.coursier.home explicitly if you are using coursier in a CI environment and want to cache artifacts between runs.
+  #   home: ""
+  # # Jar files or directories that are added to sbt's classpath. Note that the entries are delimited by comma, e.g.: entry1, entry2,... See also resource in the sbt launcher documentation.
+  # extraClasspath: ""
+  # # Generate build.properties if missing. If unset, this defers to sbt.skip.version.write.
+  # genbuildprops: "true"
+  # global:
+  #   # The directory containing global settings and plugins.
+  #   base: "$HOME/.sbt/1.0"
+  # inc:
+  #   # Extra debugging for the incremental debugger.
+  #   debug: "false"
+  # ivy:
+  #   # Use ivy to retrieve packages.
+  #   enabled: "true"
+  #   # The directory containing the local Ivy repository and artifact cache. You should define sbt.ivy.home explicitly if you are using sbt in a CI environment and want to cache ivy artifacts between runs.
+  #   home: "~/.ivy2"
+  # log:
+  #   # If true, disable ANSI color codes. Useful on build servers or terminals that do not support color.
+  #   noformat: "false"
+  # main:
+  #   # The sbt class to use (alternatives include sbt.ConsoleMain and sbt.ScriptMain).
+  #   class: "sbt.xMain"
+  # # Avoid retrieving classes from repositories.
+  # offline: "false"
+  # override:
+  #   build:
+  #     # If true, repositories configured in a build definition are ignored and the repositories configured for the launcher are used instead. See sbt.repository.config and the sbt launcher documentation.
+  #     repos: "false"
+  # # Use always to show progress ("supershell").
+  # progress: "?"
+  # repository:
+  #   # A file containing the repositories to use for the launcher. The format is the same as a [repositories] section for a sbt launcher configuration file. This setting is typically used in conjunction with setting sbt.override.build.repos to true (see sbt.override.build.repos and the sbt launcher documentation).
+  #   config: "~/.sbt/repositories"
+  # resident:
+  #   # The number of scala compilers to keep around. This experimental feature was intended to improve compilation time. It does not appear to have succeeded and this flag will probably be removed.
+  #   limit: 0
+  # skip:
+  #   version:
+  #     # Generate build.properties if missing. See sbt.genbuildprops.
+  #     write: "false"
+  # supershell:
+  #   # Use supershell (show progress at bottom of shell).
+  #   enabled: "true"
+  #   # Time to wait between updating the supershell progress area.
+  #   sleep: 100
+  # task:
+  #   timings:
+  #     # Measure the time elapsed for running tasks.
+  #     enabled: "false"
+  #     # Omit paths when reporting timings.
+  #     omit.paths: "false"
+  #     # Report timings at JVM shutdown (instead of at task completion).
+  #     on.shutdown: "false"
+  #     # Omit items from timing report if they are below this threshold.
+  #     threshold: 0
+  # # Generate Chrome Trace Event Format log for tasks.
+  # traces: "false"
+  # # Use additional layered class loaders.
+  # turbo: "false"
+  # # sbt version to use, usually taken from project/build.properties.
+  # version: "1.10.10"
+  # # If polling, check file system periodically for updates.
+  # watch_mode: "auto"
+  # # Extra JVM properties
+  # jvm_properties: {}
+
+scala_sbt_global_config: ""
 
 # Ammonite
 scala_ammonite_version: 3.0.8

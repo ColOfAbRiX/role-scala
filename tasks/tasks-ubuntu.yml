@@ -51,16 +51,13 @@
         name: sbt
         state: present
 
-    - name: "Global SBT configuration"
+    - name: "Global SBT Options"
       template:
-        src: "sbt_global/{{ item }}.j2"
-        dest: "/etc/sbt/{{ item }}"
+        src: "sbt/sbtopts.j2"
+        dest: /etc/sbt/sbtopts
         owner: root
         group: root
         mode: "0644"
-      loop:
-        - sbtopts
-        - global.sbt
 
     - name: Configure users
       ansible.builtin.include_tasks: configure_user.yml
