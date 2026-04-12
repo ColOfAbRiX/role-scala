@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: Fabrizio Colonna <colofabrix@tin.it>
-  description: Scala programming language installation with Ammonite REPL
+  description: Scala programming language installation
   license: MIT
   min_ansible_version: "2.10"
   platforms:
@@ -14,7 +14,6 @@ galaxy_info:
     - development
     - programming
     - jvm
-    - ammonite
 
 dependencies:
   - java

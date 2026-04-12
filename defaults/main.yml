@@ -3,7 +3,3 @@
 
 # Scala
 scala_version: 3.8.2
-
-# Ammonite
-scala_ammonite_install: false
-scala_ammonite_version: 3.0.8
