@@ -6,26 +6,38 @@
     quiet: true
   tags: scala
 
-- name: "Include OS-Specific Variables"
-  include_vars: "vars-{{ ansible_distribution | lower }}.yml"
+- name: Unarchive Scala to /opt
+  ansible.builtin.unarchive:
+    src: "https://github.com/scala/scala3/releases/download/{{ scala_version }}/scala3-{{ scala_version }}.tar.gz"
+    dest: /opt
+    remote_src: yes
+    creates: "/opt/scala3-{{ scala_version }}"
   tags: scala
 
-- name: "Run OS-Specific Tasks"
-  include_tasks: "tasks-{{ ansible_distribution | lower }}.yml"
-  tags: scala
-
-- name: "Set Scala URLs"
-  set_fact:
-    ammonite_url: "https://github.com/lihaoyi/Ammonite/releases/download/{{ scala_ammonite_version }}/{{ scala_version | regex_replace('\\.\\d+$', '') }}-{{ scala_ammonite_version }}"
-    cacheable: false
+- name: Create symlinks in /usr/local/bin
+  ansible.builtin.file:
+    src: "/opt/scala3-{{ scala_version }}/bin/{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
+    state: link
+  loop:
+    - scala
+    - scalac
+    - scaladoc
   tags: scala
 
 ##  Ammonite  ##
+
+- name: "Set Ammonite URLs"
+  set_fact:
+    ammonite_url: "https://github.com/lihaoyi/Ammonite/releases/download/{{ scala_ammonite_version }}/{{ scala_version | regex_replace('\\.\\d+$', '') }}-{{ scala_ammonite_version }}"
+  when: scala_ammonite_install | default(False) | bool
+  tags: scala
 
 - name: "Check Ammonite executable"
   stat:
     path: /usr/local/bin/amm
   register: ammonite_exec_check
+  when: scala_ammonite_install | default(False) | bool
   tags: scala
 
 - name: "Install Ammonite"
@@ -51,6 +63,6 @@
         src: ammonite_predef.sc.j2
         dest: ~/.ammonite/predef.sc
 
-  when: not ammonite_exec_check.stat.exists or
-    scala_ammonite_force_install | default(False) | bool
+  when: not ammonite_exec_check.stat.exists and
+    scala_ammonite_install | default(False) | bool
   tags: scala

@@ -1,6 +1,6 @@
 # scala
 
-Ansible role to install Scala and SBT
+Ansible role to install Scala
 
 ## Example Playbook
 
